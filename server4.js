@@ -34,12 +34,15 @@ const validateToken = function(request, response, next) {
 
 app.post("/authenticate", function(request, response) {
 
-    // example purposes only - this would be retrieved from db
+    // our mock data - username and password
     let user = {
         username: "roadtohire",
         //password: "$2a$10$LiMweWit2woRvc2IGpSfcuOM23EeRYu5X9f09Fxsw3hUsdLZBoj/q"
         password: "password"
     };
+
+    // a password is typically hashed before storing on db
+    // so we are going to hash it now for demo purposes
     let salt = bcrypt.genSaltSync(10);
     let hash = bcrypt.hashSync(user.password, salt);
 
@@ -48,14 +51,17 @@ app.post("/authenticate", function(request, response) {
     } else if(!request.body.password) {
         return response.status(401).send({ "success": false, "message": "A `password` is required"});
     }
-    console.log(request.body.password)
-    console.log(user.password)
-    bcrypt.compare(request.body.password, user.password, function(error, result) {
+
+    // lets console
+    console.log(`The password from web is ${request.body.password}`)
+    console.log(`The plain text password on our db is ${user.password}`)
+    console.log(`The hash of our password on our db is ${hash}`)
+    bcrypt.compare(request.body.password, hash, function(error, result) {
         console.log(result);
         if(error || !result) {
             return response.status(401).send({ "success": false, "message": "Invalid username and password" });
         }
-        let token = JsonWebToken.sign(user, app.get("jwt-secret"), {});
+        let token = jsonWebToken.sign(user, app.get("jwt-secret"), {});
 
         // if username and password are correct, we return jwt token
         response.send({"token": token});

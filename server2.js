@@ -28,7 +28,7 @@ app.post("/authenticate", function(request, response) {
     } else if(!request.body.password) {
         return response.status(401).send({ "success": false, "message": "A `password` is required"});
     }
-    Bcrypt.compare(request.body.password, user.password, function(error, result) {
+    bcrypt.compare(request.body.password, user.password, function(error, result) {
         console.log(result);
         if(error || !result) {
             return response.status(401).send({ "success": false, "message": "Invalid username and password" });
