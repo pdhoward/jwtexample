@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.set("jwt-secret", "bNEPp6H70vPo01yGe5lptraU4N9v005y");
 
-var validateToken = function(request, response, next) {};
+const validateToken = function(request, response, next) {};
 
 app.post("/authenticate", function(request, response) {});
 
