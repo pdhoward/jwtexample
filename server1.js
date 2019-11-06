@@ -7,6 +7,11 @@ const app = express();
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
+
+// setting a variable used for signing and verifying jwt data
+// variable name and value can be whatever you want 
+// but should be kept secret
+
 app.set("jwt-secret", "bNEPp6H70vPo01yGe5lptraU4N9v005y");
 
 var validateToken = function(request, response, next) {};
