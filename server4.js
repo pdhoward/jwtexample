@@ -19,7 +19,7 @@ const validateToken = function(request, response, next) {
     if(authHeader) {
         bearerToken = authHeader.split(" ");
         if(bearerToken.length == 2) {
-            JsonWebToken.verify(bearerToken[1], app.get("jwt-secret"), function(error, decodedToken) {
+            jsonWebToken.verify(bearerToken[1], app.get("jwt-secret"), function(error, decodedToken) {
                 if(error) {
                     return response.status(401).send({ "success": false, "error": "Invalid authorization token" });
                 }

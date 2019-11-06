@@ -21,7 +21,8 @@ app.post("/authenticate", function(request, response) {
     // example purposes only - this would be stored in a db
     let user = {
         username: "roadtohire",
-        password: "$2a$10$LiMweWit2woRvc2IGpSfcuOM23EeRYu5X9f09Fxsw3hUsdLZBoj/q"
+        password: "password"
+        
     };
     if(!request.body.username) {
         return response.status(401).send({ "success": false, "message": "A `username` is required"});
